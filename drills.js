@@ -1,27 +1,21 @@
+const bst = require('./bstClass')
 //Drill #1
 function binarySearch(array, value, start=0, end=array.length-1) {
   if (start > end) {
     return -1;
   }
-
-  //find the midpoint and the item att the midpoint 
   const index = Math.floor((start + end) / 2);
   const item = array[index];
 
-  //if the middle element is the target them return that location
   if (item === value) {
     return index;
   }
 
-  //if the middle element is less than the target then the target lies 
-  //on the right side so eliminate all left side and only 
-  //consider after the middle to the end of the array
   else if (item < value) {
     console.log(array[index], 'index');
     return binarySearch(array, value, index + 1, end);
   }
-  //if the middle element is greater than the target then the 
-  //target is on the left side so the left of the middle 
+
   else if (item > value) {
     console.log(array[index], 'index');
     return binarySearch(array, value, start, index - 1);
@@ -73,7 +67,7 @@ const inputArr=[3, 5, 6, 8, 11, 12, 14, 15, 17, 18];
 
 const arrInput=[50, 3, 5, 22,  6, 8, 11, 12, 2, 14, 15, 17, 1, 18];
 const sortedArr = arrInput.sort((a, b) => { return a-b; });
-console.log(sortedArr);
+//console.log(sortedArr);
 
 
 module.exports = {linearSearch, reactBinarySearch};
@@ -100,3 +94,70 @@ module.exports = {linearSearch, reactBinarySearch};
 //    6      10
 //   / \     / \
 // 5   7    9   11
+
+//drill 5
+function drill5(){
+  let pineTree = new bst()
+  pineTree.insert(25)
+  pineTree.insert(15)
+  pineTree.insert(50)
+  pineTree.insert(10)
+  pineTree.insert(24)
+  pineTree.insert(35)
+  pineTree.insert(70)
+  pineTree.insert(4)
+  pineTree.insert(12)
+  pineTree.insert(18)
+  pineTree.insert(31)
+  pineTree.insert(44)
+  pineTree.insert(66)
+  pineTree.insert(90)
+  pineTree.insert(22)
+  console.log('INORDER------------------------- ')
+  pineTree.dfsInOrder()
+  console.log('POST ORDER------------------------- ')
+  pineTree.dfsPostOrder()
+  console.log('PREORDER------------------ ' )
+  pineTree.dfsPreOrder()
+}
+//drill5()
+
+//6
+/**
+ * picard
+ *    riker
+ *       worf
+ *       laforge
+ *    data
+ *        crusher
+ *            selar
+ */
+function drill6(){
+  let starshipUSSEnterprise = new bst()
+  starshipUSSEnterprise.insert('Captain Picard')
+  starshipUSSEnterprise.left = new bst('Commander Riker', null, 'Captain Picard')
+  starshipUSSEnterprise.right = new bst('Commander Data', null, 'Captain Picard')
+  starshipUSSEnterprise.left.left = new bst('Lt. Cmdr. Worf', null, 'Commander Riker')
+  starshipUSSEnterprise.left.right = new bst('Lt. Cmdr. LaForge', null, 'Commander Riker')
+  starshipUSSEnterprise.right.right = new bst('Lt. Cmdr. Crusher', null, 'Commander Data')
+  starshipUSSEnterprise.right.right.left = new bst('Lieutenant Selar', null, 'Lt. Cmdr. Crusher')
+  starshipUSSEnterprise.dfsPreOrder()
+}
+//drill6()
+
+//7
+//input, a day which is actually an index
+//output, max profit when bought on that day and sell on subsequent day
+function drill7(day){
+  const shares = [128, 97, 121, 123, 98, 97, 105]
+  let temp
+  let max = -50
+  for(let i = day+1; i < shares.length; i++){
+    temp = shares[i] - shares[day]
+    if(temp > max) {
+      max = temp
+    }
+  }
+  console.log(max)
+}
+//drill7(0)
